@@ -1,7 +1,10 @@
 def int_overflow(n: int):
-	maxint = 2147483647
-	if not -maxint - 1 <= n <= maxint:
-		n = (n + (maxint + 1)) % (2 * (maxint + 1)) - maxint - 1
+	"""Overlow behavior of signed int32 type.
+ 	:param n: Number to be owerflowed.
+  	:return: The overflowed number.
+ 	"""
+	if not -0x80000000 <= n <= 0x7FFFFFFF:
+		n = (n + 0x80000000) % (2 * 0x80000000) - 0x80000000
 	return n
 
 def lshift(n: int | float, i: int):
