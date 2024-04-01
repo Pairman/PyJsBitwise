@@ -1,9 +1,9 @@
 def int_overflow(n):
-	"""Overlow behavior of signed int32 type.
+	"""Overlow behavior of signed 32-bit integer.
  	:param n: Number to be owerflowed. Int.
   	:return: The overflowed number. Int.
  	"""
-	return (n + 0x80000000) & 0xFFFFFFFF - 0x80000000
+	return (n + 0x80000000) % 0x100000000 - 0x80000000
 
 def lshift(n, i):
 	"""JavaScript-flavored bitwise shift left (<<).
@@ -11,10 +11,9 @@ def lshift(n, i):
  	:param i: Number of bits to shift by. Int.
   	:return: The shifted number. Int.
  	"""
-	n = (type(n) is float and int(n) & 0xFFFFFFFF) or n
-	i &= 0x1F
-	j = abs(i)
-	return int_overflow((i >= 0 and n << j) or n >> j)
+	n = int(n) & 0xFFFFFFFF
+	i = int(i) & 0x1F
+	return int_overflow(n << i if i >= 0 else n >> -i)
 
 def rshift(n, i):
 	"""JavaScript-flavored bitwise shift right (>>).
@@ -22,10 +21,9 @@ def rshift(n, i):
  	:param i: Number of bits to shift by. Int.
   	:return: The shifted number. Int.
  	"""
-	n = (type(n) is float and int(n) & 0xFFFFFFFF) or n
-	i &= 0x1F
-	j = abs(i)
-	return int_overflow((i >= 0 and n >> j) or n << j)
+	n = (int(n) & 0xFFFFFFFF) if type(n) is float else int_overflow(n)
+	i = int(i) & 0x1F
+	return int_overflow(n >> i if i >= 0 else n << -i)
 
 def urshift(n, i):
 	"""JavaScript-flavored bitwise unsigned shift right (>>>).
@@ -33,8 +31,6 @@ def urshift(n, i):
  	:param i: Number of bits to shift by. Int.
   	:return: The shifted number. Int.
  	"""
-	n = (type(n) is float and int(n) & 0xFFFFFFFF) or n
-	n &= (n < 0 and 0xFFFFFFFF) or n
-	i &= 0x1F
-	j = abs(i)
-	return abs(int_overflow((i >= 0 and n >> j) or n << j))
+	n = int(n) & 0xFFFFFFFF
+	i = int(i) & 0x1F
+	return (n >> i if i >= 0 else -n << -i) & 0xffffffff
