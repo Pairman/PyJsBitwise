@@ -1,2 +1,2 @@
 # PyJsShift
-Bitwise shifting with the same behavior in JavaScript.
+JavaScript-flavored bitwise operations.
