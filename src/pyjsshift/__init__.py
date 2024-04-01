@@ -25,7 +25,7 @@ def rshift(n, i):
 	n = (type(n) is float and int(n) & 0xFFFFFFFF) or n
 	i &= 0x1F
 	j = abs(i)
-	return int_overflow((i >= 0 and n >> j) or n << -j)
+	return int_overflow((i >= 0 and n >> j) or n << j)
 
 def urshift(n, i):
 	"""JavaScript-flavored bitwise unsigned shift right (>>>).
@@ -37,4 +37,4 @@ def urshift(n, i):
 	n &= (n < 0 and 0xFFFFFFFF) or n
 	i &= 0x1F
 	j = abs(i)
-	return (i >= 0 and int_overflow(n >> j)) or -int_overflow(n << j)
+	return abs(int_overflow((i >= 0 and n >> j) or n << j))
