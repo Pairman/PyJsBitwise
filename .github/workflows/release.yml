@@ -1,0 +1,36 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:
+
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Wheel
+    uses: ./.github/workflows/build-wheel.yml
+    secrets: inherit
+
+  publish:
+    name: Publish to PyPI
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: publish-pypi
+      url: https://pypi.org/project/PyJsBitwise
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4.1.4
+        with:
+          name: dist_wheel
+          path: dist_wheel
+  
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1.8
+        with:
+          packages-dir: dist_wheel/
