@@ -1,7 +1,7 @@
 from functools import reduce
 from math import isnan
 
-def int_overflow(n):
+def i32cast(n):
 	"""Overlow behavior of signed 32-bit integer.
  	:param n: Number to be owerflowed. Int or float.
   	:return: The overflowed result. Int.
@@ -18,7 +18,7 @@ def lshift(n, i):
 		return 0
 	n = int(n) & 0xFFFFFFFF
 	i = int(i) & 0x1F
-	return int_overflow(n << i if i >= 0 else n >> -i)
+	return i32cast(n << i if i >= 0 else n >> -i)
 
 def rshift(n, i):
 	"""JavaScript-flavored shift right (>>).
@@ -28,9 +28,9 @@ def rshift(n, i):
  	"""
 	if n == None or isnan(n):
 		return 0
-	n = (int(n) & 0xFFFFFFFF) if type(n) is float else int_overflow(n)
+	n = (int(n) & 0xFFFFFFFF) if type(n) is float else i32cast(n)
 	i = int(i) & 0x1F
-	return int_overflow(n >> i if i >= 0 else n << -i)
+	return i32cast(n >> i if i >= 0 else n << -i)
 
 def urshift(n, i):
 	"""JavaScript-flavored unsigned shift right (>>>).
@@ -49,25 +49,25 @@ def bwnot(n):
  	:param m: Number. Int or float.
   	:return: The bitwise-not result. Int.
  	"""
-	return ~int_overflow(n)
+	return ~i32cast(n)
 
 def bwand(*args):
 	"""JavaScript-flavored bitwise and (&).
  	:param *args: Numbers. Int or float.
   	:return: The bitwise-and result. Int.
  	"""
-	return reduce(lambda m, n: int_overflow(m) & int_overflow(n), args)
+	return reduce(lambda m, n: i32cast(m) & i32cast(n), args)
 
 def bwor(*args):
 	"""JavaScript-flavored bitwise or (|).
  	:param *args: Numbers. Int or float.
   	:return: The bitwise-or result. Int.
  	"""
-	return reduce(lambda m, n: int_overflow(m) | int_overflow(n), args)
+	return reduce(lambda m, n: i32cast(m) | i32cast(n), args)
 
 def bwxor(*args):
 	"""JavaScript-flavored bitwise xor (^).
  	:param *args: Numbers. Int or float.
   	:return: The bitwise-xor result. Int.
  	"""
-	return reduce(lambda m, n: int_overflow(m) ^ int_overflow(n), args)
+	return reduce(lambda m, n: i32cast(m) ^ i32cast(n), args)
