@@ -37,4 +37,4 @@ def urshift(n, i):
 	n &= (n < 0 and 0xFFFFFFFF) or n
 	i &= 0x1F
 	j = abs(i)
-	return int_overflow(n >> j) if i >= 0 else -int_overflow(n << j)
+	return (i >= 0 and int_overflow(n >> j)) or -int_overflow(n << j)
