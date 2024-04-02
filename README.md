@@ -25,5 +25,5 @@ Shift left, right and unsigned right like JavaScript's <<, >>, >>>:
 ```python
 lshift(1, 32) # 1
 rshift(-2, -31) # -1
-urshift(-1,0) # 4294967295
+urshift(-1, 0) # 4294967295
 ```
