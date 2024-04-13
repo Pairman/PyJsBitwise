@@ -1,12 +1,12 @@
-from functools import reduce
-from math import isnan
+from functools import reduce as _reduce
+from math import isnan as _isnan
 
 def i32cast(n):
 	"""Overlow behavior of signed 32-bit integer.
  	:param n: Number to be owerflowed. Int or float.
   	:return: The overflowed result. Int.
  	"""
-	return 0 if n == None or isnan(n) else (int(n) + 0x80000000) % 0x100000000 - 0x80000000
+	return 0 if n == None or _isnan(n) else (int(n) + 0x80000000) % 0x100000000 - 0x80000000
 
 def lshift(n, i):
 	"""JavaScript-flavored bitwise shift left (<<).
@@ -14,7 +14,7 @@ def lshift(n, i):
  	:param i: Number of bits to shift by. Int.
   	:return: The shift result. Int.
  	"""
-	if n == None or isnan(n):
+	if n == None or _isnan(n):
 		return 0
 	n = int(n) & 0xFFFFFFFF
 	i = int(i) & 0x1F
@@ -26,7 +26,7 @@ def rshift(n, i):
  	:param i: Number of bits to shift by. Int.
   	:return: The shift result. Int.
  	"""
-	if n == None or isnan(n):
+	if n == None or _isnan(n):
 		return 0
 	n = (int(n) & 0xFFFFFFFF) if type(n) is float else i32cast(n)
 	i = int(i) & 0x1F
@@ -38,7 +38,7 @@ def urshift(n, i):
  	:param i: Number of bits to shift by. Int.
   	:return: The shift result. Int.
  	"""
-	if n == None or isnan(n):
+	if n == None or _isnan(n):
 		return 0
 	n = int(n) & 0xFFFFFFFF
 	i = int(i) & 0x1F
@@ -56,18 +56,18 @@ def bwand(*args):
  	:param *args: Numbers. Int or float.
   	:return: The bitwise-and result. Int.
  	"""
-	return reduce(lambda m, n: i32cast(m) & i32cast(n), args)
+	return _reduce(lambda m, n: i32cast(m) & i32cast(n), args)
 
 def bwor(*args):
 	"""JavaScript-flavored bitwise or (|).
  	:param *args: Numbers. Int or float.
   	:return: The bitwise-or result. Int.
  	"""
-	return reduce(lambda m, n: i32cast(m) | i32cast(n), args)
+	return _reduce(lambda m, n: i32cast(m) | i32cast(n), args)
 
 def bwxor(*args):
 	"""JavaScript-flavored bitwise xor (^).
  	:param *args: Numbers. Int or float.
   	:return: The bitwise-xor result. Int.
  	"""
-	return reduce(lambda m, n: i32cast(m) ^ i32cast(n), args)
+	return _reduce(lambda m, n: i32cast(m) ^ i32cast(n), args)
