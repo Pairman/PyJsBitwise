@@ -17,7 +17,7 @@ def lshift(n, i):
 	if n == None or _isnan(n):
 		return 0
 	n = int(n) & 0xFFFFFFFF
-	i = int(i) & 0x1F
+	i = 0 if i == None or _isnan(n) else int(i) & 0x1F
 	return i32cast(n << i if i >= 0 else n >> -i)
 
 def rshift(n, i):
@@ -29,7 +29,7 @@ def rshift(n, i):
 	if n == None or _isnan(n):
 		return 0
 	n = (int(n) & 0xFFFFFFFF) if type(n) is float else i32cast(n)
-	i = int(i) & 0x1F
+	i = 0 if i == None or _isnan(n) else int(i) & 0x1F
 	return i32cast(n >> i if i >= 0 else n << -i)
 
 def urshift(n, i):
@@ -41,7 +41,7 @@ def urshift(n, i):
 	if n == None or _isnan(n):
 		return 0
 	n = int(n) & 0xFFFFFFFF
-	i = int(i) & 0x1F
+	i = 0 if i == None or _isnan(n) else int(i) & 0x1F
 	return (n >> i if i >= 0 else -n << -i) & 0xffffffff
 
 def bwnot(n):
