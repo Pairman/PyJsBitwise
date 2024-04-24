@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setup(
 	name = "PyJsBitwise",
-	version = "1.0.1",
+	version = "1.0.2",
 	author = "Pairman",
 	author_email = "pairmanxlr@gmail.com",
 	description = "JavaScript-flavored bitwise operations.",
