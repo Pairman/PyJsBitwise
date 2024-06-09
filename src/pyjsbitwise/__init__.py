@@ -42,7 +42,7 @@ def urshift(n, i):
 		return 0
 	n = int(n) & 0xFFFFFFFF
 	i = 0 if i == None or _isnan(n) else int(i) & 0x1F
-	return (n >> i if i >= 0 else -n << -i) & 0xffffffff
+	return (n >> i if i >= 0 else -n << -i) & 0xFFFFFFFF
 
 def bwnot(n):
 	"""JavaScript-flavored bitwise not (~).
