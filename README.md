@@ -1,4 +1,4 @@
-# PyJsShift
+# PyJsBitwise
 JavaScript-flavored bitwise operations.
 
 # Usage
