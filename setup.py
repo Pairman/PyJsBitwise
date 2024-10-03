@@ -16,7 +16,7 @@ setup(
 	classifiers = [
 		"Programming Language :: Python :: 3",
 	],
-	python_requires = ">= 3.0",
+	python_requires = ">=3.0",
 	url = "https://github.com/Pairman/PyJsBitwise",
 	project_urls = {
 		"Homepage": "https://github.com/Pairman/PyJsBitwise",
